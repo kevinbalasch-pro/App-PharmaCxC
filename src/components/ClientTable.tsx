@@ -5,14 +5,17 @@ import { BUCKET_COLOR, porCliente, type ClienteRow, type EnrichedDoc } from '../
 
 type Key = 'cliente' | 'docs' | 'neto' | 'abonado' | 'saldo' | 'maxDias' | 'pct';
 
+// El saldo va en la última columna a propósito: es la cifra que se busca, y en
+// la fila de totales conviene que sea lo último que lee el ojo. El porcentaje,
+// que en el total siempre es 100%, se aparta a su izquierda.
 const COLS: { key: Key; label: string; num?: boolean }[] = [
   { key: 'cliente', label: 'Cliente' },
   { key: 'docs', label: 'Docs.', num: true },
   { key: 'maxDias', label: 'Atraso máx.', num: true },
   { key: 'neto', label: 'Monto original', num: true },
   { key: 'abonado', label: 'Abonado', num: true },
-  { key: 'saldo', label: 'Saldo', num: true },
   { key: 'pct', label: '% cartera', num: true },
+  { key: 'saldo', label: 'Saldo', num: true },
 ];
 
 interface Props {
@@ -113,10 +116,10 @@ export function ClientTable({ docs, abiertos, onAbiertos }: Props) {
                   </td>
                   <td className="num">{moneyExact(r.neto)}</td>
                   <td className={`num${r.abonado < 0 ? ' neg' : ''}`}>{r.abonado !== 0 ? moneyExact(r.abonado) : '—'}</td>
+                  <td className="num">{pct(r.pct)}</td>
                   <td className={`num${r.saldo < 0 ? ' neg' : ''}`} style={{ fontWeight: 650 }}>
                     {moneyExact(r.saldo)}
                   </td>
-                  <td className="num">{pct(r.pct)}</td>
                 </tr>
                 {abierto && (
                   <tr className="fila-detalle">
@@ -199,11 +202,9 @@ export function ClientTable({ docs, abiertos, onAbiertos }: Props) {
               <td className="num">
                 <strong>{moneyExact(totales.abonado)}</strong>
               </td>
+              <td className="num">100,0%</td>
               <td className="num">
                 <strong>{moneyExact(totales.saldo)}</strong>
-              </td>
-              <td className="num">
-                <strong>100,0%</strong>
               </td>
             </tr>
           </tfoot>
