@@ -1,0 +1,12 @@
+node_modules/
+dist/
+
+# Permisos y rutas de esta máquina, no del proyecto.
+.claude/settings.local.json
+
+# Nunca versionar reportes reales: contienen datos de clientes.
+*.xls
+*.xlsx
+*.xlsm
+*.csv
+public/

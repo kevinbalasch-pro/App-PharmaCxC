@@ -1,0 +1,1113 @@
+:root {
+  color-scheme: light;
+
+  --surface-1: #fcfcfb;
+  --page: #f9f9f7;
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  --text-muted: #898781;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --border: rgba(11, 11, 11, 0.1);
+
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+
+  --good: #0ca30c;
+  --warning: #fab219;
+  --serious: #ec835a;
+  --critical: #d03b3b;
+  --success-text: #006300;
+
+  --radius: 10px;
+  --gap: 16px;
+
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-synthesis-weight: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+select,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+/* ---------- estructura ---------- */
+
+.shell {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 24px 24px 64px;
+}
+
+.topbar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.topbar h1 {
+  font-size: 19px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.topbar .sub {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.topbar .sub strong {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.topbar-acciones {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.card {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+}
+
+.section-title {
+  font-size: 13px;
+  font-weight: 650;
+  color: var(--text-primary);
+  margin: 0 0 2px;
+}
+
+.section-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 0 0 14px;
+}
+
+/* ---------- dropzone ---------- */
+
+.drop {
+  display: grid;
+  place-items: center;
+  min-height: 62vh;
+  text-align: center;
+}
+
+.drop-inner {
+  width: min(560px, 100%);
+  border: 1.5px dashed var(--axis);
+  border-radius: 14px;
+  background: var(--surface-1);
+  padding: 44px 32px;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.drop-inner.over {
+  border-color: var(--series-1);
+  background: #f2f7fe;
+}
+
+.drop h2 {
+  font-size: 17px;
+  margin: 0 0 6px;
+}
+
+.drop p {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  margin: 0 0 20px;
+}
+
+.btn {
+  border: 1px solid var(--border);
+  background: var(--surface-1);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 550;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.btn:hover {
+  background: #f2f2ef;
+}
+
+.btn-primary {
+  background: var(--series-1);
+  border-color: var(--series-1);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #256abf;
+}
+
+.btn-ghost {
+  border-color: transparent;
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.btn-ghost:hover {
+  background: #eeeeea;
+}
+
+/* ---------- KPIs ---------- */
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: var(--gap);
+  margin: var(--gap) 0;
+}
+
+.kpi {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+
+.kpi-label {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.045em;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.kpi-value {
+  font-size: 26px;
+  font-weight: 680;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.kpi-note {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+}
+
+/* ---------- filtros ---------- */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 10px 22px;
+  margin-bottom: var(--gap);
+  padding: 14px 18px;
+}
+
+.filtros-grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.filtros-titulo {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding-bottom: 4px;
+  border-bottom: 2px solid var(--grid);
+}
+
+.filtros-fila {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.filtros-resultado {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  align-self: flex-end;
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field label {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.field select,
+.field input {
+  border: 1px solid var(--axis);
+  border-radius: 7px;
+  padding: 6px 9px;
+  font-size: 13px;
+  background: var(--surface-1);
+  min-width: 130px;
+}
+
+.field select:focus-visible,
+.field input:focus-visible {
+  outline: 2px solid var(--series-1);
+  outline-offset: -1px;
+}
+
+.filters .spacer {
+  flex: 1;
+}
+
+.chip-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  border: 1px solid var(--axis);
+  background: var(--surface-1);
+  border-radius: 999px;
+  padding: 5px 11px;
+  font-size: 12.5px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* ---------- filtro por casillas (estilo Excel) ---------- */
+
+.ms-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border: 1px solid var(--axis);
+  border-radius: 7px;
+  padding: 6px 9px;
+  font-size: 13px;
+  background: var(--surface-1);
+  cursor: pointer;
+  min-width: 190px;
+  max-width: 240px;
+}
+
+.ms-trigger.activo {
+  border-color: var(--series-1);
+  color: var(--series-1);
+  font-weight: 550;
+}
+
+.ms-trigger:hover {
+  background: #f2f2ef;
+}
+
+.ms-texto {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ms-panel {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  z-index: 40;
+  width: 306px;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  box-shadow: 0 8px 26px rgba(11, 11, 11, 0.14);
+  padding: 9px;
+}
+
+.ms-buscar {
+  width: 100%;
+  border: 1px solid var(--axis);
+  border-radius: 6px;
+  padding: 6px 9px;
+  font-size: 13px;
+  background: var(--surface-1);
+}
+
+.ms-acciones {
+  display: flex;
+  gap: 4px;
+  margin: 6px 0;
+  border-bottom: 1px solid var(--grid);
+  padding-bottom: 6px;
+}
+
+.ms-acciones .btn {
+  padding: 3px 8px;
+  font-size: 12px;
+}
+
+.ms-lista {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.ms-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px;
+  border-radius: 5px;
+  font-size: 12.5px;
+  cursor: pointer;
+}
+
+.ms-item:hover {
+  background: #f2f2ef;
+}
+
+.ms-item input {
+  flex: none;
+  accent-color: var(--series-1);
+  cursor: pointer;
+}
+
+.ms-nombre {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ms-detalle {
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  font-size: 11.5px;
+  flex: none;
+}
+
+.ms-vacio {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 14px 0;
+  margin: 0;
+}
+
+.ms-pie {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  border-top: 1px solid var(--grid);
+  margin-top: 6px;
+  padding-top: 6px;
+}
+
+.chip[aria-pressed='true'] {
+  background: var(--series-1);
+  border-color: var(--series-1);
+  color: #fff;
+  font-weight: 550;
+}
+
+/* ---------- charts ---------- */
+
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: var(--gap);
+  margin-bottom: var(--gap);
+}
+
+/* Sin esto, el SVG de Recharts impone su ancho al track del grid y la página
+   termina con scroll horizontal. */
+.chart-grid > *,
+.kpi-grid > *,
+.diag-grid > * {
+  min-width: 0;
+}
+
+.chart-body {
+  width: 100%;
+  height: 280px;
+}
+
+.chart-body.tall {
+  height: 400px;
+}
+
+.legend {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend i {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.tooltip {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 11px;
+  font-size: 12.5px;
+  box-shadow: 0 4px 14px rgba(11, 11, 11, 0.09);
+}
+
+.tooltip .t-title {
+  font-weight: 650;
+  margin-bottom: 4px;
+}
+
+.tooltip .t-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  color: var(--text-secondary);
+}
+
+.tooltip .t-row b {
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+/* ---------- tabla ---------- */
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table.data {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+table.data th {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1.5px solid var(--axis);
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+
+table.data th:hover {
+  color: var(--text-primary);
+}
+
+table.data th.num,
+table.data td.num {
+  text-align: right;
+}
+
+table.data td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--grid);
+  white-space: nowrap;
+}
+
+table.data tbody tr:hover {
+  background: #f5f5f2;
+}
+
+table.data tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* En pantalla el nombre se recorta con puntos suspensivos; el texto completo
+   sigue en el DOM (y en el title), listo para envolver al imprimir. */
+td.celda-cliente {
+  max-width: 270px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+td.celda-productos {
+  max-width: 240px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-secondary);
+}
+
+.productos-mas {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Lista vertical: un producto por línea, cada uno recortado a lo ancho.
+   El td deja de ser nowrap para que las líneas se apilen. */
+td.celda-productos.vertical {
+  max-width: 260px;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+.producto-linea {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.45;
+}
+
+.producto-linea + .producto-linea {
+  border-top: 1px solid var(--grid);
+}
+
+.graficos-barra {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 10px 18px;
+  margin-bottom: var(--gap);
+}
+
+.graficos-titulo {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.graficos-barra .chip-row {
+  flex: 1;
+}
+
+.badge {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.neg {
+  color: var(--critical);
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  font-size: 12.5px;
+  color: var(--text-secondary);
+}
+
+/* ---------- diagnóstico ---------- */
+
+details.diag {
+  margin-top: var(--gap);
+}
+
+details.diag > summary {
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 12px 18px;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+details.diag[open] > summary {
+  border-radius: var(--radius) var(--radius) 0 0;
+  border-bottom: none;
+}
+
+details.diag > summary::-webkit-details-marker {
+  display: none;
+}
+
+.diag-body {
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 var(--radius) var(--radius);
+  background: var(--surface-1);
+  padding: 4px 18px 18px;
+}
+
+.diag-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.kv {
+  font-size: 12.5px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--grid);
+}
+
+.kv:last-child {
+  border-bottom: none;
+}
+
+.kv span:first-child {
+  color: var(--text-secondary);
+}
+
+.kv span:last-child {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.status.ok {
+  color: var(--success-text);
+}
+
+.status.bad {
+  color: var(--critical);
+}
+
+.status.warn {
+  color: #8a5a00;
+}
+
+.alert {
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 12.5px;
+  margin-bottom: 8px;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.alert.warn {
+  background: #fdf4e0;
+  border: 1px solid #f0dcae;
+  color: #6b4a00;
+}
+
+.alert.ok {
+  background: #eaf7ea;
+  border: 1px solid #bfe3bf;
+  color: var(--success-text);
+}
+
+code.mono {
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  font-size: 11.5px;
+  background: #f0efec;
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.foot {
+  margin-top: 26px;
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+@media (max-width: 720px) {
+  .shell {
+    padding: 16px 14px 48px;
+  }
+  .chart-grid {
+    grid-template-columns: 1fr;
+  }
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---------- vista agrupada por cliente ---------- */
+
+.tabla-cabecera {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.tabla-controles {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  flex-wrap: wrap;
+}
+
+.segmentado {
+  display: inline-flex;
+  border: 1px solid var(--axis);
+  border-radius: 8px;
+  overflow: hidden;
+  flex: none;
+}
+
+.segmentado button {
+  border: none;
+  background: var(--surface-1);
+  padding: 6px 14px;
+  font-size: 12.5px;
+  font-weight: 550;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+.segmentado button + button {
+  border-left: 1px solid var(--axis);
+}
+
+.segmentado button:hover {
+  background: #f2f2ef;
+}
+
+.segmentado button[aria-pressed='true'] {
+  background: var(--series-1);
+  color: #fff;
+}
+
+tr.fila-cliente {
+  cursor: pointer;
+}
+
+td.expandir button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 12px;
+  padding: 0 2px;
+  line-height: 1;
+}
+
+tr.fila-detalle > td {
+  background: #f6f6f3;
+  padding: 4px 10px 10px 0;
+}
+
+table.data.sub {
+  font-size: 12px;
+  background: var(--surface-1);
+  border: 1px solid var(--grid);
+  border-radius: 6px;
+}
+
+table.data.sub th {
+  border-bottom: 1px solid var(--grid);
+  cursor: default;
+  font-size: 10.5px;
+}
+
+table.data.sub th:hover {
+  background: none;
+  color: var(--text-muted);
+}
+
+table.data tfoot td {
+  border-top: 1.5px solid var(--axis);
+  padding: 9px 10px;
+  background: var(--surface-1);
+}
+
+/* Total de cada cliente, justo bajo su último documento. */
+table.data.sub tfoot td {
+  border-top: 1.5px solid var(--axis);
+  border-bottom: none;
+  padding: 6px 10px;
+  background: #f2f6fd;
+  font-weight: 650;
+}
+
+table.data.sub tfoot td:first-child {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+/* ---------- impresión / PDF ---------- */
+
+.solo-impresion {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm 10mm;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  /* Sin esto el navegador descarta los fondos al imprimir y las insignias de
+     días —texto blanco sobre color— quedarían invisibles en el PDF. */
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .shell {
+    max-width: none;
+    padding: 0;
+  }
+
+  /* Fuera todo lo que es control: en papel no se puede pulsar nada. */
+  .topbar,
+  .filters,
+  .pager,
+  details.diag,
+  .foot,
+  .tabla-controles,
+  td.expandir,
+  .alert,
+  .no-print {
+    display: none !important;
+  }
+
+  .solo-impresion {
+    display: block;
+  }
+
+  .print-header h1 {
+    font-size: 17px;
+    margin: 0 0 8px;
+  }
+
+  .print-header table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10px;
+    margin-bottom: 12px;
+  }
+
+  .print-header th {
+    text-align: left;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 2px 8px 2px 0;
+    white-space: nowrap;
+    width: 1%;
+  }
+
+  .print-header td {
+    padding: 2px 16px 2px 0;
+    color: var(--text-primary);
+  }
+
+  .card,
+  .kpi {
+    border: 1px solid var(--grid);
+    box-shadow: none;
+    break-inside: avoid;
+  }
+
+  /* Menos relleno en la tarjeta: cada milímetro va a la tabla. */
+  .card {
+    padding: 10px 12px;
+  }
+
+  .kpi-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    margin: 0 0 10px;
+  }
+
+  .kpi {
+    padding: 8px 10px;
+  }
+
+  .kpi-value {
+    font-size: 15px;
+  }
+
+  .kpi-label {
+    font-size: 8px;
+  }
+
+  .kpi-note {
+    font-size: 8.5px;
+  }
+
+  /* Una gráfica por fila: el SVG ya mide más que media página impresa. */
+  .chart-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  /* En papel no hay scroll horizontal: las tablas se ajustan al ancho de la
+     página. Solo el nombre del cliente envuelve; el resto son valores cortos
+     que se leen mejor en una línea. */
+  table.data {
+    font-size: 10px;
+    width: 100%;
+  }
+
+  table.data.sub {
+    table-layout: fixed;
+    width: 100%;
+    font-size: 9px;
+  }
+
+  /* Con table-layout: fixed las nueve columnas se repartirían por igual y a
+     Productos le tocarían 64 px: trece caracteres. El reparto va explícito
+     para que la lista de productos sea legible. */
+  table.data.sub th:nth-child(1) {
+    width: 6%;
+  }
+  table.data.sub th:nth-child(2) {
+    width: 11%;
+  }
+  table.data.sub th:nth-child(3) {
+    width: 9%;
+  }
+  table.data.sub th:nth-child(4) {
+    width: 30%;
+  }
+  table.data.sub th:nth-child(5) {
+    width: 6%;
+  }
+  table.data.sub th:nth-child(6) {
+    width: 10%;
+  }
+  table.data.sub th:nth-child(7),
+  table.data.sub th:nth-child(8) {
+    width: 10%;
+  }
+  table.data.sub th:nth-child(9) {
+    width: 8%;
+  }
+
+  table.data th {
+    font-size: 9px;
+    white-space: normal;
+  }
+
+  table.data td,
+  table.data th {
+    padding: 5px 4px;
+    vertical-align: top;
+  }
+
+  /* La columna del cliente se lleva el ancho que necesita y parte por palabras,
+     nunca a mitad de una. Dos líneas caben sin recortar. */
+  /* El selector lleva `table.data` a propósito: `table.data td` ya fija
+     white-space: nowrap y le gana por especificidad a `td.celda-*`. Sin este
+     prefijo el texto no envuelve y la tabla se estira metros a la derecha. */
+  table.data td.celda-cliente,
+  table.data td.celda-productos {
+    max-width: none;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    overflow-wrap: break-word;
+    word-break: normal;
+    hyphens: none;
+    line-height: 1.3;
+  }
+
+  table.data td.celda-cliente {
+    width: 22%;
+  }
+
+  table.data td.celda-productos {
+    width: 26%;
+  }
+
+  tr.fila-detalle > td {
+    padding: 2px 0 6px;
+  }
+
+  table.data.sub td {
+    overflow-wrap: break-word;
+  }
+
+  table.data thead {
+    display: table-header-group;
+  }
+
+  table.data tr {
+    break-inside: avoid;
+  }
+
+  .table-wrap {
+    overflow: visible;
+  }
+}
