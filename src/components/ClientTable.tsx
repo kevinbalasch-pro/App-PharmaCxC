@@ -108,18 +108,32 @@ export function ClientTable({ docs, abiertos, onAbiertos }: Props) {
                   >
                     {r.cliente}
                   </td>
-                  <td className="num">{r.docs}</td>
-                  <td className="num">
-                    <span className="badge" style={{ background: BUCKET_COLOR[r.peorBucket] }} title={`Tramo ${r.peorBucket} días`}>
-                      {r.maxDias <= 0 ? 'al día' : r.maxDias}
-                    </span>
-                  </td>
-                  <td className="num">{moneyExact(r.neto)}</td>
-                  <td className={`num${r.abonado < 0 ? ' neg' : ''}`}>{r.abonado !== 0 ? moneyExact(r.abonado) : '—'}</td>
-                  <td className="num">{pct(r.pct)}</td>
-                  <td className={`num${r.saldo < 0 ? ' neg' : ''}`} style={{ fontWeight: 650 }}>
-                    {moneyExact(r.saldo)}
-                  </td>
+                  {/* Desplegado, los totales del cliente se repetirían aquí y al
+                      pie de su detalle. Se dejan solo abajo, junto a lo que suman. */}
+                  {abierto ? (
+                    <td colSpan={COLS.length - 1} />
+                  ) : (
+                    <>
+                      <td className="num">{r.docs}</td>
+                      <td className="num">
+                        <span
+                          className="badge"
+                          style={{ background: BUCKET_COLOR[r.peorBucket] }}
+                          title={`Tramo ${r.peorBucket} días`}
+                        >
+                          {r.maxDias <= 0 ? 'al día' : r.maxDias}
+                        </span>
+                      </td>
+                      <td className="num">{moneyExact(r.neto)}</td>
+                      <td className={`num${r.abonado < 0 ? ' neg' : ''}`}>
+                        {r.abonado !== 0 ? moneyExact(r.abonado) : '—'}
+                      </td>
+                      <td className="num">{pct(r.pct)}</td>
+                      <td className={`num${r.saldo < 0 ? ' neg' : ''}`} style={{ fontWeight: 650 }}>
+                        {moneyExact(r.saldo)}
+                      </td>
+                    </>
+                  )}
                 </tr>
                 {abierto && (
                   <tr className="fila-detalle">
@@ -196,13 +210,16 @@ export function ClientTable({ docs, abiertos, onAbiertos }: Props) {
                 <strong>{totales.docs}</strong>
               </td>
               <td />
+              {/* Los tres importes van pegados al borde derecho, como en la fila
+                  de total de cada cliente desplegado. El porcentaje se omite:
+                  en el total general siempre vale 100%. */}
+              <td />
               <td className="num">
                 <strong>{moneyExact(totales.neto)}</strong>
               </td>
               <td className="num">
                 <strong>{moneyExact(totales.abonado)}</strong>
               </td>
-              <td className="num">100,0%</td>
               <td className="num">
                 <strong>{moneyExact(totales.saldo)}</strong>
               </td>

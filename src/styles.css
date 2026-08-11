@@ -1006,10 +1006,26 @@ table.data.sub tfoot td:first-child {
     font-size: 8.5px;
   }
 
-  /* Una gráfica por fila: el SVG ya mide más que media página impresa. */
+  /* Las gráficas se apilan como bloques, no como grid: al paginar, el navegador
+     manda cada fila de un grid a su propia hoja y salía una sola gráfica por
+     página. En flujo normal caben dos.
+     La altura no se toca a propósito: Recharts mide el SVG al renderizar y no
+     vuelve a medirlo al imprimir, así que bajarla por CSS solo conseguiría que
+     el gráfico se desbordara de su tarjeta. */
   .chart-grid {
-    grid-template-columns: 1fr;
-    gap: 10px;
+    display: block;
+  }
+
+  .chart-grid > .card {
+    margin-bottom: 10px;
+  }
+
+  .chart-grid .card {
+    padding: 8px 12px;
+  }
+
+  .chart-grid .section-sub {
+    margin-bottom: 6px;
   }
 
   /* En papel no hay scroll horizontal: las tablas se ajustan al ancho de la

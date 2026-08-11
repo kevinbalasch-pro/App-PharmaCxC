@@ -174,6 +174,10 @@ Un selector en la cabecera de la tabla cambia la agrupación sin tocar los filtr
   documentos, y **Desplegar todo** abre los de todos los clientes a la vez. Cierra con una
   fila de totales que debe cuadrar con el KPI de cartera.
 
+  Al desplegar un cliente, su fila deja de mostrar los totales: ya aparecen al pie de su
+  propio detalle, junto a las cifras que suman. Los importes del total general van pegados al
+  borde derecho, igual que en esos pies, y sin porcentaje: en el total siempre valdría 100%.
+
 No es un filtro: es la misma selección presentada de otra forma, así que vendedor, fechas,
 antigüedad y todo lo demás se siguen aplicando igual en las dos vistas.
 
