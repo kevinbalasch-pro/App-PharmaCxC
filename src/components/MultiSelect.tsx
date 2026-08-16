@@ -14,13 +14,23 @@ interface Props {
   /** Texto del botón cuando no hay nada seleccionado. */
   vacio: string;
   buscarPlaceholder?: string;
+  /** Ancho del panel en px. Se amplía cuando las opciones tienen nombres largos. */
+  anchoPanel?: number;
 }
 
 /**
  * Filtro por casillas al estilo de Excel: un botón que abre un panel con
  * buscador interno y lista marcable. Selección vacía significa «todos».
  */
-export function MultiSelect({ etiqueta, opciones, seleccion, onChange, vacio, buscarPlaceholder }: Props) {
+export function MultiSelect({
+  etiqueta,
+  opciones,
+  seleccion,
+  onChange,
+  vacio,
+  buscarPlaceholder,
+  anchoPanel,
+}: Props) {
   const [abierto, setAbierto] = useState(false);
   const [q, setQ] = useState('');
   const cont = useRef<HTMLDivElement>(null);
@@ -74,7 +84,12 @@ export function MultiSelect({ etiqueta, opciones, seleccion, onChange, vacio, bu
       </button>
 
       {abierto && (
-        <div className="ms-panel" role="listbox" aria-label={etiqueta}>
+        <div
+          className="ms-panel"
+          role="listbox"
+          aria-label={etiqueta}
+          style={anchoPanel ? { width: anchoPanel } : undefined}
+        >
           <input
             ref={buscador}
             type="search"

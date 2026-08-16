@@ -126,6 +126,7 @@ export function Filters({
                 onChange={(s) => set('productos', s)}
                 vacio="Todos los productos"
                 buscarPlaceholder="Filtrar artículos…"
+                anchoPanel={480}
               />
             </div>
           </div>
