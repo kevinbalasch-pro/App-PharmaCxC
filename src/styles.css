@@ -477,13 +477,10 @@ input {
   min-width: 0;
 }
 
+/* Sin altura: la fija el ResponsiveContainer desde una prop, para poder
+   reducirla al imprimir. Ver lib/modoImpresion.ts */
 .chart-body {
   width: 100%;
-  height: 280px;
-}
-
-.chart-body.tall {
-  height: 400px;
 }
 
 .legend {
@@ -956,16 +953,19 @@ table.data.sub tfoot td:first-child {
     display: block;
   }
 
+  /* Compacta a propósito: cada píxel que ahorra la portada es un píxel que gana
+     la segunda gráfica para entrar en la misma hoja. */
   .print-header h1 {
-    font-size: 17px;
-    margin: 0 0 8px;
+    font-size: 15px;
+    margin: 0 0 4px;
   }
 
   .print-header table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 10px;
-    margin-bottom: 12px;
+    font-size: 9.5px;
+    margin-bottom: 8px;
+    line-height: 1.25;
   }
 
   .print-header th {
@@ -974,13 +974,13 @@ table.data.sub tfoot td:first-child {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    padding: 2px 8px 2px 0;
+    padding: 0 8px 0 0;
     white-space: nowrap;
     width: 1%;
   }
 
   .print-header td {
-    padding: 2px 16px 2px 0;
+    padding: 0 16px 0 0;
     color: var(--text-primary);
   }
 

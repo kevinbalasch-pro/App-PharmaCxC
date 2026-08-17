@@ -29,7 +29,9 @@ const masReciente = (rutas: string[]): string | null =>
     : rutas.sort((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs)[0];
 
 const esCxC = (n: string): boolean => /^cxc/i.test(n) && !/prueba/i.test(n);
-const esProductos = (n: string): boolean => /ventas.*articulo/i.test(n.replace(/[_\s]/g, ''));
+// El reporte ha venido como "VentasxArticulo" y como "FacturasxArticulo": lo que
+// no cambia es que va "por artículo".
+const esProductos = (n: string): boolean => /articulo/i.test(n.replace(/[_\s]/g, '')) && !esCxC(n);
 
 /** Reporte de cuentas por cobrar. `argv[2]` gana sobre la búsqueda. */
 export function archivoCxC(): string | null {

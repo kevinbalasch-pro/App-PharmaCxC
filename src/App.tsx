@@ -19,6 +19,7 @@ import {
 } from './lib/metrics';
 import { ProductosLoader, ProductosResumen } from './components/ProductosLoader';
 import { ingestProductos, type CatalogoProductos } from './lib/ingest/productos';
+import { useModoImpresion } from './lib/modoImpresion';
 import { descargarExcel } from './lib/export';
 import { codigosDesconocidos } from './lib/vendedores';
 import { fecha, money } from './lib/format';
@@ -90,6 +91,7 @@ function Dashboard({
   const [graficos, setGraficos] = useState<GraficoId[]>(TODOS_VISIBLES);
   const [productos, setProductos] = useState<CatalogoProductos | null>(null);
   const [errorProductos, setErrorProductos] = useState<string | null>(null);
+  const imprimiendo = useModoImpresion();
 
   const asOf = useMemo(() => inferAsOf(docs), [docs]);
   const all = useMemo(
@@ -285,10 +287,10 @@ function Dashboard({
 
       {graficos.length > 0 && (
         <div className="chart-grid">
-          {graficos.includes('antiguedad') && <AgingChart data={aging} />}
-          {graficos.includes('meses') && <MesChart data={meses} />}
-          {graficos.includes('clientes') && <TopClientesChart data={clientes} />}
-          {graficos.includes('vendedores') && <VendedorChart data={vendedores} />}
+          {graficos.includes('antiguedad') && <AgingChart data={aging} imprimiendo={imprimiendo} />}
+          {graficos.includes('meses') && <MesChart data={meses} imprimiendo={imprimiendo} />}
+          {graficos.includes('clientes') && <TopClientesChart data={clientes} imprimiendo={imprimiendo} />}
+          {graficos.includes('vendedores') && <VendedorChart data={vendedores} imprimiendo={imprimiendo} />}
         </div>
       )}
 

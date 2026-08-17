@@ -192,6 +192,14 @@ filtros aplicados y alcance, para que meses después se sepa de dónde salió ca
 controles (filtros, botones, panel de diagnóstico) se ocultan, las gráficas pasan a una por
 fila y las tablas se compactan; el encabezado de la tabla se repite en cada página.
 
+Las gráficas se apilan como bloques —no como grid, que el navegador pagina mandando cada fila
+a su propia hoja— y se dibujan más bajas al imprimir, de modo que **dos cualesquiera entran en
+la misma A4** junto a la portada y los indicadores. La altura no se puede bajar con CSS:
+Recharts mide el SVG al renderizar y no vuelve a medirlo con la media query, así que se pasa
+como prop y se aplica en el evento `beforeprint` con `flushSync` (ver `lib/modoImpresion.ts`).
+En «Mayores deudores» el nombre se recorta más al imprimir para que las doce etiquetas quepan
+en una línea; si envuelven, ocupan el doble y chocan entre sí.
+
 Los nombres de cliente **no se recortan nunca en el HTML**: en pantalla los acorta el CSS con
 puntos suspensivos, y al imprimir la columna se ensancha al 27% y el texto envuelve por
 palabras (nunca a mitad de una), así que el nombre completo siempre queda legible en el PDF.

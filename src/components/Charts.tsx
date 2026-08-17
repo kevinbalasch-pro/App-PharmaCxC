@@ -10,6 +10,7 @@ import {
   YAxis,
 } from 'recharts';
 import { compact, money, num, pct } from '../lib/format';
+import { altoGrafica } from '../lib/modoImpresion';
 import { BUCKET_COLOR, type BucketRow, type ClienteRow, type MesRow, type VendedorRow } from '../lib/metrics';
 
 const SERIES_1 = '#2a78d6';
@@ -44,13 +45,13 @@ function Panel({
   title,
   sub,
   legend,
-  tall,
+  alto,
   children,
 }: {
   title: string;
   sub: string;
   legend?: { color: string; label: string }[];
-  tall?: boolean;
+  alto: number;
   children: React.ReactElement;
 }) {
   return (
@@ -67,8 +68,10 @@ function Panel({
           ))}
         </div>
       )}
-      <div className={`chart-body${tall ? ' tall' : ''}`}>
-        <ResponsiveContainer width="100%" height="100%">
+      {/* La altura llega como dato, no por CSS: Recharts no vuelve a medir el
+          SVG al imprimir. Ver lib/modoImpresion.ts */}
+      <div className="chart-body">
+        <ResponsiveContainer width="100%" height={alto}>
           {children}
         </ResponsiveContainer>
       </div>
@@ -77,11 +80,12 @@ function Panel({
 }
 
 /** Antigüedad de saldos: rampa de un solo tono, más oscuro = más vencido. */
-export function AgingChart({ data }: { data: BucketRow[] }) {
+export function AgingChart({ data, imprimiendo }: { data: BucketRow[]; imprimiendo: boolean }) {
   return (
     <Panel
       title="Antigüedad de saldos"
       sub="Cuánto dinero lleva cuánto tiempo sin cobrarse. El tono se oscurece con el atraso."
+      alto={altoGrafica(false, imprimiendo)}
     >
       <BarChart data={data} margin={{ top: 24, right: 8, left: 4, bottom: 4 }}>
         <CartesianGrid {...gridProps} />
@@ -127,18 +131,21 @@ export function AgingChart({ data }: { data: BucketRow[] }) {
   );
 }
 
-export function TopClientesChart({ data }: { data: ClienteRow[] }) {
-  // Se recorta a una sola línea: si el texto envuelve, las etiquetas chocan entre sí.
+export function TopClientesChart({ data, imprimiendo }: { data: ClienteRow[]; imprimiendo: boolean }) {
+  // Se recorta para que el nombre quepa en una línea: si envuelve, ocupa 28 px
+  // y las doce etiquetas dejan de caber, chocando entre sí. Al imprimir el
+  // gráfico es más bajo, así que hay que recortar más.
   // El nombre completo sigue disponible en el tooltip y en la tabla de detalle.
+  const tope = imprimiendo ? 16 : 21;
   const rows = data.slice(0, 12).map((r) => ({
     ...r,
-    corto: r.cliente.length > 21 ? `${r.cliente.slice(0, 20)}…` : r.cliente,
+    corto: r.cliente.length > tope ? `${r.cliente.slice(0, tope - 1)}…` : r.cliente,
   }));
   return (
     <Panel
       title="Mayores deudores"
       sub="Los 12 clientes que concentran más saldo pendiente."
-      tall
+      alto={altoGrafica(true, imprimiendo)}
     >
       <BarChart data={rows} layout="vertical" margin={{ top: 4, right: 52, left: 4, bottom: 4 }} barCategoryGap={4}>
         <CartesianGrid stroke={GRID} horizontal={false} />
@@ -185,7 +192,7 @@ export function TopClientesChart({ data }: { data: ClienteRow[] }) {
   );
 }
 
-export function MesChart({ data }: { data: MesRow[] }) {
+export function MesChart({ data, imprimiendo }: { data: MesRow[]; imprimiendo: boolean }) {
   return (
     <Panel
       title="Cartera por mes de emisión"
@@ -194,6 +201,7 @@ export function MesChart({ data }: { data: MesRow[] }) {
         { color: SERIES_1, label: 'Monto original' },
         { color: SERIES_2, label: 'Saldo pendiente' },
       ]}
+      alto={altoGrafica(false, imprimiendo)}
     >
       <BarChart data={data} margin={{ top: 8, right: 8, left: 4, bottom: 4 }} barGap={2}>
         <CartesianGrid {...gridProps} />
@@ -237,9 +245,9 @@ export function MesChart({ data }: { data: MesRow[] }) {
   );
 }
 
-export function VendedorChart({ data }: { data: VendedorRow[] }) {
+export function VendedorChart({ data, imprimiendo }: { data: VendedorRow[]; imprimiendo: boolean }) {
   return (
-    <Panel title="Cartera por vendedor" sub="Saldo pendiente asignado a cada vendedor." tall>
+    <Panel title="Cartera por vendedor" sub="Saldo pendiente asignado a cada vendedor." alto={altoGrafica(true, imprimiendo)}>
       <BarChart data={data} layout="vertical" margin={{ top: 4, right: 52, left: 4, bottom: 4 }} barCategoryGap={4}>
         <CartesianGrid stroke={GRID} horizontal={false} />
         <XAxis type="number" tick={axisTick} axisLine={false} tickLine={false} tickFormatter={(v: number) => compact(v)} />
