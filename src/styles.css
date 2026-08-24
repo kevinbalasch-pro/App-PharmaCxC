@@ -577,7 +577,9 @@ table.data tbody tr:hover {
   background: #f5f5f2;
 }
 
-table.data tbody tr:last-child td {
+/* Solo la última fila de la tabla entera pierde el borde. Con un tbody por
+   cliente, sin acotar el selector se borraría la separación de cada grupo. */
+table.data > tbody:last-of-type > tr:last-child > td {
   border-bottom: none;
 }
 
@@ -1133,6 +1135,24 @@ table.data.sub tfoot td:first-child {
 
   table.data tr {
     break-inside: avoid;
+  }
+
+  /* El nombre del cliente y sus documentos son una unidad de lectura: si el
+     salto de página los separa, el lector ve un nombre suelto al pie de una
+     hoja y facturas sin dueño en la siguiente.
+     El tbody agrupa a cada cliente y no se parte; break-after en la fila del
+     nombre es el respaldo para cuando el grupo es más alto que una página y el
+     navegador tiene que partirlo por fuerza. */
+  tbody.grupo-cliente {
+    break-inside: avoid;
+  }
+
+  tr.fila-cliente {
+    break-after: avoid;
+  }
+
+  tr.fila-detalle {
+    break-before: avoid;
   }
 
   .table-wrap {

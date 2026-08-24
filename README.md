@@ -200,6 +200,16 @@ como prop y se aplica en el evento `beforeprint` con `flushSync` (ver `lib/modoI
 En «Mayores deudores» el nombre se recorta más al imprimir para que las doce etiquetas quepan
 en una línea; si envuelven, ocupan el doble y chocan entre sí.
 
+En la vista por cliente, cada cliente y sus documentos van en su propio `tbody`, que el
+navegador trata como un bloque indivisible al paginar: nunca queda un nombre suelto al pie de
+una hoja con sus facturas en la siguiente. Si un grupo llegara a ser más alto que una página,
+`break-after` en la fila del nombre evita al menos que se separe del inicio de su detalle.
+
+En la vista por cliente, cada cliente y sus documentos van en su propio , que el
+navegador trata como un bloque indivisible al paginar: nunca queda un nombre suelto al pie de
+una hoja con sus facturas en la siguiente. Si un grupo llegara a ser más alto que una página,
+ en la fila del nombre evita al menos que se separe del comienzo del detalle.
+
 Los nombres de cliente **no se recortan nunca en el HTML**: en pantalla los acorta el CSS con
 puntos suspensivos, y al imprimir la columna se ensancha al 27% y el texto envuelve por
 palabras (nunca a mitad de una), así que el nombre completo siempre queda legible en el PDF.

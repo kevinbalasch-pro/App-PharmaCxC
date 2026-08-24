@@ -1,4 +1,4 @@
-import { Fragment, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { CeldaProductos } from './CeldaProductos';
 import { fecha, moneyExact, num, pct } from '../lib/format';
 import { BUCKET_COLOR, porCliente, type ClienteRow, type EnrichedDoc } from '../lib/metrics';
@@ -83,11 +83,12 @@ export function ClientTable({ docs, abiertos, onAbiertos }: Props) {
             ))}
           </tr>
         </thead>
-        <tbody>
-          {ordenadas.map((r) => {
+        {ordenadas.map((r) => {
             const abierto = abiertos.includes(r.cliente);
+            // Un tbody por cliente: el navegador lo trata como un bloque al
+            // paginar, así el nombre no se queda solo al pie de una hoja.
             return (
-              <Fragment key={r.cliente}>
+              <tbody key={r.cliente} className="grupo-cliente">
                 <tr className="fila-cliente" onClick={() => toggleFila(r.cliente)}>
                   <td className="expandir">
                     <button
@@ -188,17 +189,18 @@ export function ClientTable({ docs, abiertos, onAbiertos }: Props) {
                     </td>
                   </tr>
                 )}
-              </Fragment>
+              </tbody>
             );
           })}
-          {ordenadas.length === 0 && (
+        {ordenadas.length === 0 && (
+          <tbody>
             <tr>
               <td colSpan={COLS.length + 1} style={{ textAlign: 'center', padding: 28, color: 'var(--text-muted)' }}>
                 Ningún cliente coincide con los filtros.
               </td>
             </tr>
-          )}
-        </tbody>
+          </tbody>
+        )}
         {ordenadas.length > 0 && (
           <tfoot>
             <tr>
