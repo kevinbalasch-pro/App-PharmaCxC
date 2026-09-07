@@ -219,6 +219,29 @@ palabras (nunca a mitad de una), así que el nombre completo siempre queda legib
 Una barra sobre las gráficas trae un interruptor por cada una. Lo que se oculta no se
 renderiza, así que tampoco aparece al guardar el PDF — sirve para armar informes a medida.
 
+
+## Despliegue
+
+La app se publica en Vercel: **https://apppharmacxc2026.vercel.app/**
+
+Al ser un sitio estático que procesa todo en el navegador, no hay variables de entorno ni
+servicios que configurar: Vercel solo necesita `npm run build` y la carpeta `dist/`.
+
+Dos cosas que costaron un rato descubrir y conviene no volver a tropezar con ellas:
+
+- **Vercel ignora los commits cuyo autor no reconoce.** Un push firmado con un correo ajeno a
+  la cuenta no dispara ningún build, y no aparece error en ninguna parte: sencillamente no
+  pasa nada. Los commits deben ir con el correo de la cuenta de Vercel/GitHub. Se comprueba
+  con `git config user.email`.
+- **Comprobar qué versión está publicada** es inmediato mirando el nombre del bundle:
+
+  ```bash
+  curl -s https://apppharmacxc2026.vercel.app/ | grep -o 'index-[A-Za-z0-9_-]*\.js'
+  ```
+
+  Ese nombre cambia con cada build. Si coincide con el que produce `npm run build` en local,
+  lo publicado es el código actual; si no, el despliegue se quedó atrás.
+
 ## Límites conocidos
 
 - Un solo tipo de reporte por ahora (antigüedad de saldos). Otros layouts necesitan su propio
