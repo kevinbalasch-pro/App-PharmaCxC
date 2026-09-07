@@ -19,6 +19,7 @@ export const VENDEDORES: Record<string, string> = {
   '13': 'Mariela',
   '14': 'Martina',
   '16': 'Sara',
+  '20': 'Meitllin Erebrie',
   KB: 'Kevin',
 };
 

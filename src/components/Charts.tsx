@@ -257,7 +257,7 @@ export function VendedorChart({ data, imprimiendo }: { data: VendedorRow[]; impr
           tick={axisTick}
           axisLine={{ stroke: AXIS }}
           tickLine={false}
-          width={92}
+          width={116}
           interval={0}
         />
         <Tooltip

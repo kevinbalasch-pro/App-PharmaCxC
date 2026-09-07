@@ -33,7 +33,8 @@ check('004 -> Beatriz', nombreVendedor('004'), 'Beatriz');
 check('KB -> Kevin', nombreVendedor('KB'), 'Kevin');
 check('007 y 008 -> Ada', [nombreVendedor('007'), nombreVendedor('008')], ['Ada', 'Ada']);
 check('un código fuera del catálogo se muestra crudo', nombreVendedor('099'), '099');
-check('el catálogo del código tiene 11 entradas', Object.keys(VENDEDORES).length, 11);
+check('020 -> Meitllin Erebrie', nombreVendedor('020'), 'Meitllin Erebrie');
+check('el catálogo del código tiene 12 entradas', Object.keys(VENDEDORES).length, 12);
 
 const ruta = archivoCxC();
 if (!ruta) {
